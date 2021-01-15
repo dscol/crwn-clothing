@@ -1,15 +1,15 @@
 import './menu-item.styles.scss'
+import { useHistory, useRouteMatch, withRouter } from 'react-router-dom';
 
-interface IMenuItem {
-    title: string,
-    id: number,
-    imageUrl: string,
-    size?: string,
-}
 
-const MenuItem = ({ title, id, imageUrl, size }: IMenuItem) => {
+const MenuItem = ({ section }: any) => {
+    let history = useHistory();
+    const match = useRouteMatch();
+
+    const { title, imageUrl, size, linkUrl } = section
+
     return (
-        <div className={`${size} menu-item`}>
+        <div className={`${size} menu-item`} onClick={() => history.push(`${match.url}${linkUrl}`)}>
             <div 
                 className='background-image' 
                 style={{
@@ -24,4 +24,4 @@ const MenuItem = ({ title, id, imageUrl, size }: IMenuItem) => {
     )
 }
 
-export default MenuItem;
+export default withRouter(MenuItem);
